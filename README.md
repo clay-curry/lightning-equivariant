@@ -2,7 +2,7 @@
 
 # ⚡️ Lightning Equivariant
 
-## Unifying Methodological Developments with Lightning Infrastrusture
+## Distributed Geometric Deep Learning with Lightning AI
 
   <img src="assets/lightning-equivariant.png" width="350" />
 
@@ -21,7 +21,7 @@ Conference
  
 ## Description
 
-Lightning Equivariant provides a unique literature review, revisiting a number of important methodological developments in neural network design but presented under the unifying theoretical lens coined [Geometric Deep Learning](https://geometricdeeplearning.com/). This repository demonstrates the discovery utility afforded by the mere act utilizing one infrastructure framework for collating a vast number of architectures trained on various tasks, with associated datasets and benchmarks, along with reusable access to tests and utility functions, all documented under a unifying theoretical lens.
+Lightning Equivariant provides an interactive kind of literature review, revisiting a number of important methodological developments in the neural network literature but presented under the unifying theoretical lens of [Geometric Deep Learning](https://geometricdeeplearning.com/). This repository demonstrates the discovery utility afforded by the mere act utilizing one infrastructure framework for collating a vast number of architectures trained on various tasks, with associated datasets and benchmarks, along with reusable access to tests and utility functions for distributed model training, all documented under a unifying theoretical lens.
 
 ## Directory Structure and Usage
 
@@ -48,8 +48,8 @@ Lightning Equivariant provides a unique literature review, revisiting a number o
         ├── grids                 # Grids and Euclidean Spaces
         │
         ├── groups                # Groups and Homogeneous Spaces
-        │   ├── ecnns.py                    # Group Equivariant CNNs (Cohen & Welling, 2016)
-        │   └── harmonic.py                 # Harmonic Networks (Cohen & Welling, 2016)
+        │   ├── ecnns.py                    # (Cohen & Welling, 2016)
+        │   └── harmonic.py                 # (Worrall et al., 2017)
         │
         ├── graphs                # Sets and Graphs
         │   ├── deep_sets.py      # (Zaheer et al., 2017)
@@ -58,9 +58,7 @@ Lightning Equivariant provides a unique literature review, revisiting a number o
         │   ├── sgc.py            # (Wu et al., 2019) (convolution-based)
         │   ├── gat.py            # (Veličković et al., 2018) (attention-based)
         │   ├── monet.py          # (Monti et al., 2017) (attention-based)
-        │   ├── .py               # (Zhang et al., 2018) (attention-based)
-        │   ├── .py               # (Gilmer et al., 2017)    (message passing)
-        │   └── .py               # (Battaglia et al., 2018) (message passing)
+        │   └── gaan.py           # (Zhang et al., 2018) (attention-based)
         │
         ├── geodesics             # Geodesics and Manifolds
         │
@@ -123,15 +121,10 @@ trainer.fit(model, train, val)
 trainer.test(test_dataloaders=test)
 ```
 
-### Acknowledgements
 
-It should be noted that virtually none of the super interesting ideas pitched in this repo constitute the original work of this repo's author. These ideas have been refined and enhanced by numerous voices going back centuries. At the very least, I should express my deepest gratitude to the mathematicians, physicists, engineers, researchers, students, instructors, mentors, and open source contributers who have played some role the development of this subject.
+### Citation (PLEASE READ CAREFULLY)
 
-That said, if by some chance your original idea or work is presented anywhere without a proper docstring or other refernce pointing to your work, I implore you to help me get it right by opening a pull request.
-
-### Citation (IMPORTANT! PLEASE READ)
-
-Again, virtually none of the super interesting ideas pitched in this repo constitute the original work of this repo's author. Should you need to cite any specific model, dataset, etc., please refer to the docstrings associated with that particular section. For all other citations, please adopt the following scheme.
+It should be noted that there does not exist a single architecture presented in this repo that constitute the original work of this author. If any model presented within this repo provides valuable insight in your own work, please refer to the inline comments to ensure proper a citation trail.
 
 ```
 @article{lightning-equivariant,
