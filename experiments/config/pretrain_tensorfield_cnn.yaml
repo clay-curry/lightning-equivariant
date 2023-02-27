@@ -1,0 +1,68 @@
+seed_everything: 0
+
+# fit, validate, test, predict, tune
+data:
+  class_path: project.modules.datamodule.FlightTrajectoryDataModule
+  init_args:
+    data_dir: experiments/data/
+    num_train: 10
+    num_valid: 3
+    batch_size: 1
+
+trainer:
+  max_epochs: 30
+  accumulate_grad_batches: 8
+  accelerator: cpu
+  log_every_n_steps: 5
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.EarlyStopping
+      init_args:
+        patience: 30
+        monitor: val_loss
+    - class_path: lightning.pytorch.callbacks.LearningRateMonitor
+      init_args:
+        logging_interval: step
+        log_momentum: true
+    - class_path: lightning.pytorch.callbacks.finetuning.FinetuningScheduler
+      init_args:
+        reinit_lr_cfg:
+          lr_scheduler_init: 
+            class_path: project.modules.optim.LinearWarmupReduceLROnPlateau
+            init_args:
+              lr_init: 0.00001
+              lr_stop: 0.000001      
+              warmup_steps: 5
+              factor: 0.1
+              patience: 5 
+            pl_lrs_cfg:
+              name: Explicit_Reinit_LR_Scheduler
+              interval: epoch
+              frequency: 1
+
+
+  logger:
+    - class_path: lightning.pytorch.loggers.TensorBoardLogger
+      init_args:
+        save_dir: ./experiments/logs/
+
+    
+
+model:
+  class_path: TensorFieldNetwork
+  init_args:
+    ker_size: 10
+    dim_out: 7
+    dim_pool: 64
+    num_channels: 8
+    max_order: 4
+    num_layers: 10
+    dim_bessel: 16
+    num_polynomial_cutoff: 5
+  
+  
+
+
+optimizer: 
+  class_path: torch.optim.Adam
+  init_args:
+    lr: 0.005

@@ -1,0 +1,42 @@
+seed_everything: 0
+
+# fit, validate, test, predict, tune
+data:
+  data_dir: data/
+  num_train: 800
+  num_valid: 100
+  batch_size: 1
+
+trainer:
+  max_epochs: 10
+  accelerator: auto
+  log_every_n_steps: 1
+  logger:
+    - class_path: lightning.pytorch.loggers.TensorBoardLogger
+      init_args:
+        save_dir: ./logs/
+
+model:
+  class_path: ManeuverGPT
+  init_args:
+    dim_model: 64
+    dim_feedforward: 64
+    num_decoder_heads: 4
+    num_decoder_blocks: 3
+    dropout: 0.1
+    
+    optimizer: adam
+    scheduler: linear_warmup_cosine_annealing
+    sampling_period: 60
+    max_tokens: 256
+    vocab_size: 7
+    
+    lr_init: 0.0000001
+    lr_stop: 0.00000001  # 1e-8
+    lr_warmup: ${num_train.num_train}
+    last_step: ${}
+
+optimizer:
+  class_path: torch.optim.Adam
+  init_args:
+    
